@@ -32,11 +32,7 @@ jobs:
         # Password or personal access token used to log against the Docker registry
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Scan lcas.lincoln.ac.uk.uk
-      uses: c-schicho/DockerRun-Action@v1
-      with:
-        image: lcas.lincoln.ac.uk/lcas/nikto:master
-        options: "-v /tmp:/tmp"
-        run: "-h https://lcas.lincoln.ac.uk -o /tmp/lcas-report.html"
+      run: docker run --rm -v /tmp:/tmp lcas.lincoln.ac.uk/lcas/nikto:master  -h https://lcas.lincoln.ac.uk -o /tmp/lcas-report.html
     - name: Archive report results
       uses: actions/upload-artifact@v3
       with:
